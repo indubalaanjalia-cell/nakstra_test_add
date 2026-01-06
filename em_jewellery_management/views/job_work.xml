@@ -41,7 +41,7 @@
                     type="object"
                     string="Making Charge Bill"
                     class="btn-secondary"
-                    invisible="making_charge_bill_id"
+                    invisible="making_charge_bill_id or job_type != 'gold_alloy'"
 
                 />
                     <field name="state" widget="statusbar" statusbar_visible="draft,issued,received,done"/>

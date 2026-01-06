@@ -7,6 +7,8 @@ class JewelleryReceiveVoucher(models.Model):
 
     name = fields.Char(string='Receive Voucher Number', copy=False, readonly=True, default='New')
     job_work_id = fields.Many2one('jewellery.job.work', required=True)
+    job_worker_id = fields.Many2one('res.partner', required=True)
+
     wastage_weight = fields.Float()
     line_ids = fields.One2many('jewellery.receive.voucher.line', 'voucher_id')
     state = fields.Selection([('draft','Draft'),('done','Done')], default='draft')

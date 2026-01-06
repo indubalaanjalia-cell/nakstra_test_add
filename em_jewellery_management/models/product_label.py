@@ -14,7 +14,6 @@ class ProductLabel(models.Model):
 
     product_id = fields.Many2one(
         'product.product',
-        required=True,
         ondelete='cascade'
     )
     product_tmpl_id = fields.Many2one(
