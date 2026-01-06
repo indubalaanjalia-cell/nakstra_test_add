@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_product_label_form" model="ir.ui.view">
+        <field name="name">product.label.form</field>
+        <field name="model">product.label</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="label_name"/>
+<!--                        <field name="product_id"/>-->
+                        <field name="product_tmpl_id"/>
+
+                    </group>
+
+                    <notebook>
+                        <page name="Details">
+                            <group string="Barcode">
+                                <field name="barcode" readonly="1"/>
+                            </group>
+                            <group string="Diamond Certificate">
+                                <field name="diamond_certificate"
+                                       filename="diamond_certificate_filename"/>
+                                <field name="diamond_certificate_filename"
+                                       invisible="1"/>
+
+                            </group>
+                        </page>
+                        <page name="Purchase Details">
+                            <group string="Jewellery Sale Details">
+                                <group>
+                                    <field name="sale_purity_id"/>
+                                    <field name="sale_price_per_gram"/>
+                                </group>
+
+                                <group string="Weights">
+                                    <field name="sale_gross_weight"/>
+                                    <field name="sale_stone_weight"/>
+                                    <field name="sale_diamond_weight"/>
+                                    <field name="sale_net_weight" readonly="1"/>
+                                </group>
+
+                                <group string="Rates">
+                                    <field name="sale_metal_rate"/>
+                                    <field name="sale_stone_rate"/>
+                                    <field name="sale_diamond_rate"/>
+                                </group>
+
+                                <group string="Making Charge">
+                                    <field name="sale_making_charge_type"/>
+                                    <field name="sale_making_charge_value"/>
+                                    <field name="sale_making_charge_amount" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="Sale Details">
+                             <group string="Jewellery Purchase Details">
+                                <group>
+                                    <field name="purchase_purity_id"/>
+                                    <field name="purchase_price_per_gram"/>
+                                </group>
+
+                                <group string="Weights">
+                                    <field name="purchase_gross_weight"/>
+                                    <field name="purchase_stone_weight"/>
+                                    <field name="purchase_diamond_weight"/>
+                                    <field name="purchase_net_weight" readonly="1"/>
+                                </group>
+
+                                <group string="Rates">
+                                    <field name="purchase_metal_rate"/>
+                                    <field name="purchase_stone_rate"/>
+                                    <field name="purchase_diamond_rate"/>
+                                </group>
+
+                                <group string="Making Charge">
+                                    <field name="purchase_making_charge_type"/>
+                                    <field name="purchase_making_charge_value"/>
+                                    <field name="purchase_making_charge_amount" readonly="1"/>
+                                </group>
+                            </group>
+
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_product_label_tree" model="ir.ui.view">
+        <field name="name">product.label.tree</field>
+        <field name="model">product.label</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="label_name"/>
+                <field name="product_tmpl_id"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_product_label" model="ir.actions.act_window">
+        <field name="name">Product Labels</field>
+        <field name="res_model">product.label</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create product-specific labels with weight and price breakup.
+            </p>
+        </field>
+    </record>
+
+
+
+</odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_issue_voucher_tree" model="ir.ui.view">
+        <field name="name">jewellery.issue.voucher.tree</field>
+        <field name="model">jewellery.issue.voucher</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="job_work_id"/>
+                <field name="job_worker_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- FORM -->
+    <record id="view_issue_voucher_form" model="ir.ui.view">
+        <field name="name">jewellery.issue.voucher.form</field>
+        <field name="model">jewellery.issue.voucher</field>
+        <field name="arch" type="xml">
+            <form string="Issue Voucher">
+                <header>
+                    <button
+                            name="action_done"
+                            type="object"
+                            string="Confirm"
+                            class="btn-primary"
+                        />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1" />
+                            </h1>
+                        </div>
+                    <group>
+                        <field name="job_work_id"/>
+                        <field name="job_worker_id"/>
+                    </group>
+
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="product_id"/>
+                            <field name="qty"/>
+                            <field name="uom_id"/>
+                            <field name="purity_id"/>
+                            <field name="gross_weight"/>
+                            <field name="stone_weight"/>
+                            <field name="diamond_weight"/>
+                            <field name="net_weight"/>
+
+                        </tree>
+                    </field>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_issue_voucher" model="ir.actions.act_window">
+        <field name="name">Issue Vouchers</field>
+        <field name="res_model">jewellery.issue.voucher</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

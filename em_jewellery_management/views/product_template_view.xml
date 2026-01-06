@@ -1,73 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="product_template_form_jewellery" model="ir.ui.view">
-    <field name="name">product.template.form.jewellery</field>
-    <field name="model">product.template</field>
-    <field name="inherit_id" ref="product.product_template_only_form_view"/>
-    <field name="arch" type="xml">
-
-        <xpath expr="//page[@name='sales']" position="inside">
-
-            <group string="Jewellery Sale Details">
-                <group>
-                    <field name="sale_purity_id"/>
-                    <field name="sale_price_per_gram"/>
-                </group>
-
-                <group string="Weights">
-                    <field name="sale_gross_weight"/>
-                    <field name="sale_stone_weight"/>
-                    <field name="sale_diamond_weight"/>
-                    <field name="sale_net_weight" readonly="1"/>
-                </group>
-
-                <group string="Rates">
-                    <field name="sale_metal_rate"/>
-                    <field name="sale_stone_rate"/>
-                    <field name="sale_diamond_rate"/>
-                </group>
-
-                <group string="Making Charge">
-                    <field name="sale_making_charge_type"/>
-                    <field name="sale_making_charge_value"/>
-                    <field name="sale_making_charge_amount" readonly="1"/>
-                </group>
-            </group>
-
-        </xpath>
-        <xpath expr="//page[@name='purchase']" position="inside">
-
-            <group string="Jewellery Purchase Details">
-                <group>
-                    <field name="purchase_purity_id"/>
-                    <field name="purchase_price_per_gram"/>
-                </group>
-
-                <group string="Weights">
-                    <field name="purchase_gross_weight"/>
-                    <field name="purchase_stone_weight"/>
-                    <field name="purchase_diamond_weight"/>
-                    <field name="purchase_net_weight" readonly="1"/>
-                </group>
-
-                <group string="Rates">
-                    <field name="purchase_metal_rate"/>
-                    <field name="purchase_stone_rate"/>
-                    <field name="purchase_diamond_rate"/>
-                </group>
-
-                <group string="Making Charge">
-                    <field name="purchase_making_charge_type"/>
-                    <field name="purchase_making_charge_value"/>
-                    <field name="purchase_making_charge_amount" readonly="1"/>
-                </group>
-            </group>
-
-        </xpath>
-
-
-    </field>
-</record>
+        <field name="name">product.template.form.jewellery</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_labels"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-tags">
+                    <field name="label_count" widget="statinfo" string="Labels"/>
+                </button>
+            </xpath>
+            <xpath expr="//page[@name='general_information']//field[@name='detailed_type']" position="after">
+                <field name="sale_purity_id"/>
+                <field name="sale_price_per_gram"/>
+            </xpath>
+        </field>
+    </record>
 
 
 </odoo>

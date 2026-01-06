@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_receive_voucher_tree" model="ir.ui.view">
+        <field name="name">jewellery.receive.voucher.tree</field>
+        <field name="model">jewellery.receive.voucher</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="job_work_id"/>
+                <field name="wastage_weight"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- FORM -->
+    <record id="view_receive_voucher_form" model="ir.ui.view">
+        <field name="name">jewellery.receive.voucher.form</field>
+        <field name="model">jewellery.receive.voucher</field>
+        <field name="arch" type="xml">
+            <form string="Receive Voucher">
+                 <header>
+                     <button
+                            name="action_done"
+                            type="object"
+                            string="Confirm"
+                            class="btn-primary"
+                        />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1" />
+                            </h1>
+                        </div>
+                    <group>
+                        <field name="job_work_id"/>
+                        <field name="wastage_weight"/>
+                    </group>
+                    <notebook>
+                        <page string="Ornaments">
+                            <field name="line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id" domain="[('is_pack', '=', True)]"/>
+                                    <field name="qty"/>
+                                    <field name="uom_id"/>
+                                    <field name="purity_id"/>
+                                    <field name="gross_weight"/>
+                                    <field name="stone_weight"/>
+                                    <field name="diamond_weight"/>
+                                    <field name="net_weight"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Detailed List">
+
+                            <field name="active_package_line_ids" nolabel="1">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="qty"/>
+                                    <field name="uom_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_receive_voucher" model="ir.actions.act_window">
+        <field name="name">Receive Vouchers</field>
+        <field name="res_model">jewellery.receive.voucher</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

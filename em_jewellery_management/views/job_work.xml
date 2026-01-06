@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_jewellery_job_work_tree" model="ir.ui.view">
+        <field name="name">jewellery.job.work.tree</field>
+        <field name="model">jewellery.job.work</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="job_worker_id"/>
+                <field name="job_type"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- FORM -->
+    <record id="view_jewellery_job_work_form" model="ir.ui.view">
+        <field name="name">jewellery.job.work.form</field>
+        <field name="model">jewellery.job.work</field>
+        <field name="arch" type="xml">
+            <form string="Job Works">
+                <header>
+                    <button
+                    name="action_create_issue_voucher"
+                    type="object"
+                    string="Create Issue Voucher"
+                    class="btn-primary"
+                    invisible="state != 'draft'"
+                />
+
+                <button
+                    name="action_create_receive_voucher"
+                    type="object"
+                    string="Create Receive Voucher"
+                    class="btn-secondary"
+                    invisible="state != 'issued'"
+                />
+
+                <button
+                    name="action_create_making_charge_bill"
+                    type="object"
+                    string="Making Charge Bill"
+                    class="btn-secondary"
+                    invisible="making_charge_bill_id"
+
+                />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,issued,received,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_making_charge_bills"
+                                    string="Vendor Bills"
+                                    type="object"
+                                    class="oe_link"
+                                    invisible="not making_charge_bill_id"
+                        />
+                    </div>
+
+                    <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1" />
+                            </h1>
+                        </div>
+
+                    <group>
+                        <field name="job_worker_id"/>
+                        <field name="job_type"/>
+                        <field name="making_charge_amount" invisible="job_type != 'gold_alloy'"/>
+                        <field name="making_charge_bill_id" invisible="1"/>
+
+                    </group>
+
+                    <notebook>
+                        <page string="Issued Materials">
+                            <field name="issue_voucher_ids"/>
+                        </page>
+
+                        <page string="Received Ornaments">
+                            <field name="receive_voucher_ids"/>
+                        </page>
+                        <page string="Lab Details">
+                            <field name="lab_test_ids">
+                                <tree editable="bottom">
+                                    <field name="lab_partner_id"/>
+                                    <field name="sample_ref"/>
+                                    <field name="metal_type"/>
+                                    <field name="issued_weight"/>
+                                    <field name="expected_purity_id"/>
+                                    <field name="tested_purity_id"/>
+                                    <field name="test_date"/>
+                                    <field name="state"/>
+                                </tree>
+
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="lab_partner_id"/>
+                                            <field name="sample_ref"/>
+                                            <field name="metal_type"/>
+                                            <field name="issued_weight"/>
+                                        </group>
+                                        <group>
+                                            <field name="expected_purity_id"/>
+                                            <field name="tested_purity_id"/>
+                                            <field name="test_date"/>
+                                            <field name="report_no"/>
+                                            <field name="state"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <field name="remarks"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_jewellery_job_work" model="ir.actions.act_window">
+        <field name="name">Job Works</field>
+        <field name="res_model">jewellery.job.work</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_job_worker_view" model="ir.ui.view">
+        <field name="name">res.partner.job.worker</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Job Work">
+                    <field name="is_job_worker"/>
+                    <field name="default_making_charge"
+                           modifiers="{'invisible':[('show_making_charge','=',False)]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

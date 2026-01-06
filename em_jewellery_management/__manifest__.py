@@ -6,11 +6,21 @@
     'summary': """""",
     'description': '',
 
-    'depends': ['web','base','product','stock'],
+    'depends': ['web','base','product','stock','sale','mrp','cr_material_purchase_requisitions','product_combo_pack'],
     'data': [
         'security/ir.model.access.csv',
+        'data/jewellery_sequence.xml',
         'views/product_template_view.xml',
         'views/purity_view.xml',
+        'views/product_label.xml',
+        'views/sale_order.xml',
+        'views/job_work.xml',
+        'views/res_partner.xml',
+        'views/receive_voucher.xml',
+
+        'views/issue_voucher.xml',
+        'views/jeweller_menu.xml',
+
     ],
 
     'auto_install': False,

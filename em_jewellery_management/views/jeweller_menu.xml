@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================= -->
+    <!-- ROOT MENU -->
+    <!-- ========================= -->
+    <record id="action_jewellery_products" model="ir.actions.act_window">
+        <field name="name">Ornaments</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_job_workers" model="ir.actions.act_window">
+        <field name="name">Job Workers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_job_worker','=',True)]</field>
+    </record>
+
+    <menuitem
+        id="menu_jewellery_root"
+        name="Jewellery"
+        sequence="10"
+    />
+    <menuitem
+        id="menu_jewellery_job_work"
+        name="Job Work"
+        parent="menu_jewellery_root"
+        action="em_jewellery_management.action_jewellery_job_work"
+        sequence="10"
+    />
+    <menuitem
+        id="menu_jewellery_products_root"
+        name="Ornaments"
+        parent="menu_jewellery_root"
+        sequence="1"
+    />
+
+    <!-- MENU: PRODUCTS -->
+    <menuitem
+        id="menu_jewellery_products"
+        name="Ornaments"
+        parent="menu_jewellery_products_root"
+        action="em_jewellery_management.action_jewellery_products"
+        sequence="10"
+    />
+    <menuitem id="menu_product_label_root"
+          name="Ornament Labels"
+          parent="menu_jewellery_products_root" sequence="60"
+          action="em_jewellery_management.action_product_label"/>
+    <menuitem
+        id="menu_jewellery_issue_voucher"
+        name="Issue Vouchers"
+        parent="menu_jewellery_root"
+        action="em_jewellery_management.action_issue_voucher"
+        sequence="20"
+    />
+    <menuitem
+        id="menu_jewellery_receive_voucher"
+        name="Receive Vouchers"
+        parent="menu_jewellery_root"
+        action="em_jewellery_management.action_receive_voucher"
+        sequence="30"
+    />
+    <menuitem id="menu_job_workers"
+              name="Job Workers"
+              parent="menu_jewellery_root"
+              action="action_job_workers"
+              sequence="10"/>
+     <menuitem
+        id="menu_jewellery_purchase_root"
+        name="Purchases"
+        parent="menu_jewellery_root"
+        sequence="3"
+    />
+
+    <menuitem
+        id="menu_jewellery_purchase_orders"
+        name="Purchase Orders"
+        parent="menu_jewellery_purchase_root"
+        action="purchase.purchase_rfq"
+        sequence="10"
+    />
+
+    <menuitem
+        id="menu_jewellery_receipts"
+        name="Receipts"
+        parent="menu_jewellery_purchase_root"
+        action="stock.action_picking_tree_ready"
+        sequence="20"
+    />
+
+    <menuitem
+        id="menu_jewellery_vendor_bills"
+        name="Bills"
+        parent="menu_jewellery_purchase_root"
+        action="account.action_move_in_invoice_type"
+        sequence="30"
+    />
+
+    <!-- ========================= -->
+    <!-- SALES -->
+    <!-- ========================= -->
+    <menuitem
+        id="menu_jewellery_sales_root"
+        name="Sales"
+        parent="menu_jewellery_root"
+        sequence="4"
+    />
+
+    <menuitem
+        id="menu_jewellery_sales_orders"
+        name="Sales Orders"
+        parent="menu_jewellery_sales_root"
+        action="sale.action_orders"
+        sequence="10"
+    />
+
+    <menuitem
+        id="menu_jewellery_customer_invoices"
+        name="Customer Invoices"
+        parent="menu_jewellery_sales_root"
+        action="account.action_move_out_invoice_type"
+        sequence="20"
+    />
+    <menuitem
+        id="menu_jewellery_sales_delivery"
+        name="Deliveries"
+        parent="menu_jewellery_sales_root"
+        action="stock.action_picking_tree_all"
+        sequence="15"
+    />
+
+    <menuitem
+        id="menu_jewellery_requisition"
+        name="Material Requisition"
+        parent="menu_jewellery_root"
+        action="cr_material_purchase_requisitions.material_purchase_requisitions"
+        sequence="2"
+    />
+     <!-- ========================= -->
+    <!-- CONFIGURATION ROOT -->
+    <!-- ========================= -->
+    <menuitem
+        id="menu_jewellery_configuration_root"
+        name="Configuration"
+        parent="menu_jewellery_root"
+        sequence="90"
+    />
+
+    <!-- ========================= -->
+    <!-- PRODUCT CATEGORIES -->
+    <!-- ========================= -->
+    <record id="action_jewellery_product_category" model="ir.actions.act_window">
+        <field name="name">Ornament Categories</field>
+        <field name="res_model">product.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_jewellery_product_category"
+        name="Ornament Categories"
+        parent="menu_jewellery_configuration_root"
+        action="action_jewellery_product_category"
+        sequence="10"
+    />
+    <record id="action_jewellery_product_pack" model="ir.actions.act_window">
+        <field name="name">Ornament Pack</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="domain">[('is_pack','=',True)]</field>
+        <field name="context">{'default_is_pack' : True}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no product pack to show...!
+            </p>
+        </field>
+    </record>
+    <menuitem
+        id="menu_jewellery_product_pack"
+        name="Ornament Pack"
+        parent="menu_jewellery_configuration_root"
+        action="action_jewellery_product_pack"
+        sequence="10"
+    />
+
+</odoo>
