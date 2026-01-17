@@ -12,6 +12,16 @@
                            modifiers="{'invisible':[('show_making_charge','=',False)]}"/>
                 </group>
             </xpath>
+            <xpath expr="//sheet/group" position="inside">
+                <field name="scheme_amount" readonly="1"/>
+            </xpath>
+            <!--            <xpath expr="//sheet/notebook" position="inside">-->
+            <!--                <page string="Scheme">-->
+            <!--                    <group>-->
+            <!--                        <field name="scheme_balance" readonly="1"/>-->
+            <!--                    </group>-->
+            <!--                </page>-->
+            <!--            </xpath>-->
         </field>
     </record>
 </odoo>

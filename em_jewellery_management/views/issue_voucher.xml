@@ -5,8 +5,9 @@
         <field name="model">jewellery.issue.voucher</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="job_work_id"/>
+                <field name="name"/>
                 <field name="job_worker_id"/>
+                <field name="total_net_weight" readonly="1"/>
                 <field name="state"/>
             </tree>
         </field>
@@ -36,6 +37,8 @@
                     <group>
                         <field name="job_work_id"/>
                         <field name="job_worker_id"/>
+                            <field name="total_net_weight" readonly="1"/>
+
                     </group>
 
                     <field name="line_ids">
@@ -43,11 +46,14 @@
                             <field name="product_id"/>
                             <field name="qty"/>
                             <field name="uom_id"/>
+                            <field name="gram_range_id"/>
+                            <field name="purity_id"/>
                             <field name="purity_id"/>
                             <field name="gross_weight"/>
                             <field name="stone_weight"/>
                             <field name="diamond_weight"/>
                             <field name="net_weight"/>
+                            <field name="fine_weight"/>
 
                         </tree>
                     </field>

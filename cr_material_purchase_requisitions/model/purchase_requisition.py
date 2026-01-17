@@ -226,10 +226,21 @@ class MaterialPurchaseRequisitionLine(models.Model):
         [
             ("purchase order", "Purchase Order"),
             ("internal picking", "Internal Picking"),
+            ("work order", "Work Order"),
+
         ],
         string="Requisition Type",
     )
     product_id = fields.Many2one("product.product", string="Product", required=True)
+    no_of_pieces = fields.Integer(
+        string="No. of Pieces",
+        default=1
+    )
+
+    gram_range_id = fields.Many2one(
+        'gold.gram.range',
+        string="Gram Range"
+    )
     description = fields.Char(string="Description", related="product_id.name")
     quantity = fields.Float(string="Quantity", required=True)
     unit_of_measure = fields.Many2one(

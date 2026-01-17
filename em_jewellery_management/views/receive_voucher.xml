@@ -5,9 +5,11 @@
         <field name="model">jewellery.receive.voucher</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="job_work_id"/>
+                <field name="name"/>
                 <field name="wastage_weight"/>
                 <field name="state"/>
+                    <field name="total_net_weight" readonly="1"/>
+
             </tree>
         </field>
     </record>
@@ -36,6 +38,8 @@
                     <group>
                         <field name="job_work_id"/>
                         <field name="wastage_weight"/>
+                            <field name="total_net_weight" readonly="1"/>
+
                     </group>
                     <notebook>
                         <page string="Ornaments">
@@ -49,6 +53,8 @@
                                     <field name="stone_weight"/>
                                     <field name="diamond_weight"/>
                                     <field name="net_weight"/>
+                                    <field name="fine_weight"/>
+
                                 </tree>
                             </field>
                         </page>

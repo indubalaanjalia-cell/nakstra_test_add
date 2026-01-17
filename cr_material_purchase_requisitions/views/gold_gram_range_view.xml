@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- =========================
+         TREE VIEW
+    ========================== -->
+    <record id="view_gold_gram_range_tree" model="ir.ui.view">
+        <field name="name">gold.gram.range.tree</field>
+        <field name="model">gold.gram.range</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="from_gram"/>
+                <field name="to_gram"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- =========================
+         FORM VIEW
+    ========================== -->
+    <record id="view_gold_gram_range_form" model="ir.ui.view">
+        <field name="name">gold.gram.range.form</field>
+        <field name="model">gold.gram.range</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="from_gram"/>
+                        <field name="to_gram"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- =========================
+         ACTION
+    ========================== -->
+    <record id="action_gold_gram_range" model="ir.actions.act_window">
+        <field name="name">Gram Ranges</field>
+        <field name="res_model">gold.gram.range</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <!-- =========================
+         MENU
+    ========================== -->
+    <menuitem
+        id="menu_gold_gram_range"
+        name="Gram Range Master"
+        parent="cr_material_purchase_requisitions.material_purchase_requisitions_root"
+        action="action_gold_gram_range"
+        sequence="30"/>
+
+</odoo>

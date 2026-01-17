@@ -41,9 +41,9 @@ class ProductLabel(models.Model):
         store=True
     )
 
-    sale_metal_rate = fields.Float(string="Sale Metal Rate")
-    sale_stone_rate = fields.Float(string="Sale Stone Rate")
-    sale_diamond_rate = fields.Float(string="Sale Diamond Rate")
+    sale_metal_rate = fields.Float(string="Sale Metal Amount")
+    sale_stone_rate = fields.Float(string="Sale Stone Amount")
+    sale_diamond_rate = fields.Float(string="Sale Diamond Amount")
 
     sale_making_charge_type = fields.Selection([
         ('percent', 'Percentage'),
@@ -61,10 +61,10 @@ class ProductLabel(models.Model):
     # =========================
     # PURCHASE JEWELLERY DETAILS
     # =========================
-    purchase_purity_id = fields.Many2one('gold.purity', string="Purchase Purity")
-    purchase_price_per_gram = fields.Float(string="Purchase Rate / gram")
+    purity_id = fields.Many2one('gold.purity', string="Purity")
+    purchase_price_per_gram = fields.Float(string="Purchase fine Rate / gram")
 
-    purchase_gross_weight = fields.Float(string="Purchase Gross Weight (g)")
+    purchase_gross_weight = fields.Float(string="Purchase Gross Amount (g)")
     purchase_stone_weight = fields.Float(string="Purchase Stone Weight (g)")
     purchase_diamond_weight = fields.Float(string="Purchase Diamond Weight (g)")
 
@@ -74,9 +74,9 @@ class ProductLabel(models.Model):
         store=True
     )
 
-    purchase_metal_rate = fields.Float(string="Purchase Metal Rate")
-    purchase_stone_rate = fields.Float(string="Purchase Stone Rate")
-    purchase_diamond_rate = fields.Float(string="Purchase Diamond Rate")
+    purchase_metal_rate = fields.Float(string="Purchase Metal Amount")
+    purchase_stone_rate = fields.Float(string="Purchase Stone Amount")
+    purchase_diamond_rate = fields.Float(string="Purchase Diamond Amount")
 
     purchase_making_charge_type = fields.Selection([
         ('percent', 'Percentage'),
@@ -90,10 +90,60 @@ class ProductLabel(models.Model):
         compute="_compute_purchase_making_charge",
         store=True
     )
+    mc_fine =fields.Float(string="MC Fine")
     barcode = fields.Char(
         'Barcode', copy=False, index='btree_not_null',
         help="International Article Number used for product identification.")
+    tag_weight = fields.Float(string="Tag Weight (g)")
+    sale_fine_weight = fields.Float(string="Fine Weight  (g)",compute="_compute_sale_fine_weight")
+    purchase_fine_weight = fields.Float(string="Fine Weight  (g)",compute="_compute_purchase_fine_weight",)
 
+    sale_diamond_weight_gm = fields.Float(
+        string="Diamond Weight (g)",
+        digits=(12, 4)
+    )
+
+    sale_diamond_weight_ct = fields.Float(
+        string="Diamond Weight (ct)",
+        digits=(12, 4)
+    )
+    purchase_diamond_weight_gm = fields.Float(
+        string="Diamond Weight (g)",
+        digits=(12, 4)
+    )
+
+    purchase_diamond_weight_ct = fields.Float(
+        string="Diamond Weight (ct)",
+        digits=(12, 4)
+    )
+
+    @api.onchange('sale_diamond_weight_ct')
+    def _onchange_sale_diamond_weight_ct(self):
+        if self.sale_diamond_weight_ct:
+            self.sale_diamond_weight_gm = self.sale_diamond_weight_ct * 0.2
+        else:
+            self.sale_diamond_weight_gm = 0.0
+
+    @api.onchange('sale_diamond_weight_gm')
+    def _onchange_sale_diamond_weight_gm(self):
+        if self.sale_diamond_weight_gm:
+            self.sale_diamond_weight_ct = self.sale_diamond_weight_gm / 0.2
+        else:
+            self.sale_diamond_weight_ct = 0.0
+
+    @api.onchange('purchase_diamond_weight_ct')
+    def _onchange_purchase_diamond_weight_ct(self):
+        if self.purchase_diamond_weight_ct:
+            self.purchase_diamond_weight_gm = self.purchase_diamond_weight_ct * 0.2
+        else:
+            self.purchase_diamond_weight_gm = 0.0
+
+    @api.onchange('purchase_diamond_weight_gm')
+    def _onchange_purchase_diamond_weight_gm(self):
+        if self.purchase_diamond_weight_gm:
+            self.purchase_diamond_weight_ct = self.purchase_diamond_weight_gm / 0.2
+        else:
+            self.purchase_diamond_weight_ct = 0.0
 
     # =========================
     # COMPUTES
@@ -101,28 +151,45 @@ class ProductLabel(models.Model):
     @api.depends(
         'sale_gross_weight',
         'sale_stone_weight',
-        'sale_diamond_weight'
+        'sale_diamond_weight_gm'
     )
     def _compute_sale_net_weight(self):
         for rec in self:
             rec.sale_net_weight = (
                     rec.sale_gross_weight
                     - rec.sale_stone_weight
-                    - rec.sale_diamond_weight
+                    - rec.sale_diamond_weight_gm
             )
+            # rec.sale_net_weight = rec.sale_net_weight*rec.purity_id.percentage
+
+    @api.depends('sale_net_weight','purity_id')
+    def _compute_sale_fine_weight(self):
+        for rec in self:
+            rec.sale_fine_weight = rec.sale_net_weight * (rec.purity_id.percentage)/100
 
     @api.depends(
         'purchase_gross_weight',
         'purchase_stone_weight',
-        'purchase_diamond_weight'
+        'purchase_diamond_weight_gm',
     )
     def _compute_purchase_net_weight(self):
         for rec in self:
             rec.purchase_net_weight = (
                     rec.purchase_gross_weight
                     - rec.purchase_stone_weight
-                    - rec.purchase_diamond_weight
+                    - rec.purchase_diamond_weight_gm
             )
+
+    @api.depends('purchase_net_weight','purity_id')
+    def _compute_purchase_fine_weight(self):
+        for rec in self:
+            rec.purchase_fine_weight = rec.purchase_net_weight * (rec.purity_id.percentage)/100
+
+    @api.depends('purchase_net_weight', 'purity_id')
+    def _compute_purchase_fine_weight(self):
+        for rec in self:
+            rec.purchase_fine_weight = rec.purchase_net_weight * (rec.purity_id.percentage) / 100
+
 
     @api.depends(
         'sale_making_charge_type',
@@ -161,6 +228,14 @@ class ProductLabel(models.Model):
                 rec.product_tmpl_id = rec.product_id.product_tmpl_id
             else:
                 rec.product_tmpl_id = False
+
+    @api.onchange('product_tmpl_id')
+    def _onchange_product_tmpl_id_set_template(self):
+        for rec in self:
+            if rec.product_tmpl_id:
+                rec.product_id = rec.product_tmpl_id
+            else:
+                rec.product_id = False
 
     @api.model
     def create(self, vals):

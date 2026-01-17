@@ -48,6 +48,7 @@
         "views/purchase_requisition.xml",
         "views/picking_count.xml",
         "views/purchase_count.xml",
+        "views/gold_gram_range_view.xml",
         "report/purchase_request_report.xml",
         "report/purchase_request_template.xml",
         "wizard/rejected.xml",

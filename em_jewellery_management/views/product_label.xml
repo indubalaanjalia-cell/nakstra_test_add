@@ -10,6 +10,8 @@
                         <field name="label_name"/>
 <!--                        <field name="product_id"/>-->
                         <field name="product_tmpl_id"/>
+                        <field name="tag_weight"/>
+                        <field name="purity_id"/>
 
                     </group>
 
@@ -26,22 +28,24 @@
 
                             </group>
                         </page>
-                        <page name="Purchase Details">
+                        <page name="Sale Details">
                             <group string="Jewellery Sale Details">
                                 <group>
-                                    <field name="sale_purity_id"/>
-                                    <field name="sale_price_per_gram"/>
+<!--                                    <field name="sale_purity_id"/>-->
+<!--                                    <field name="sale_price_per_gram"/>-->
+                                    <field name="sale_fine_weight"/>
                                 </group>
 
                                 <group string="Weights">
                                     <field name="sale_gross_weight"/>
                                     <field name="sale_stone_weight"/>
-                                    <field name="sale_diamond_weight"/>
+                                    <field name="sale_diamond_weight_gm"/>
+                                    <field name="sale_diamond_weight_ct"/>
                                     <field name="sale_net_weight" readonly="1"/>
                                 </group>
 
                                 <group string="Rates">
-                                    <field name="sale_metal_rate"/>
+<!--                                    <field name="sale_metal_rate"/>-->
                                     <field name="sale_stone_rate"/>
                                     <field name="sale_diamond_rate"/>
                                 </group>
@@ -53,17 +57,20 @@
                                 </group>
                             </group>
                         </page>
-                        <page name="Sale Details">
+                        <page name="Purchase Details">
                              <group string="Jewellery Purchase Details">
                                 <group>
-                                    <field name="purchase_purity_id"/>
+<!--                                    <field name="purchase_purity_id"/>-->
                                     <field name="purchase_price_per_gram"/>
+                                    <field name="purchase_fine_weight"/>
+
                                 </group>
 
                                 <group string="Weights">
                                     <field name="purchase_gross_weight"/>
                                     <field name="purchase_stone_weight"/>
-                                    <field name="purchase_diamond_weight"/>
+                                    <field name="purchase_diamond_weight_gm"/>
+                                    <field name="purchase_diamond_weight_ct"/>
                                     <field name="purchase_net_weight" readonly="1"/>
                                 </group>
 
@@ -76,6 +83,7 @@
                                 <group string="Making Charge">
                                     <field name="purchase_making_charge_type"/>
                                     <field name="purchase_making_charge_value"/>
+                                    <field name="mc_fine"/>
                                     <field name="purchase_making_charge_amount" readonly="1"/>
                                 </group>
                             </group>

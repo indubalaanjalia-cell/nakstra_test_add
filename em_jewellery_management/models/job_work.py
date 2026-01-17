@@ -19,6 +19,9 @@ class JewelleryJobWork(models.Model):
     receive_voucher_ids = fields.One2many(
         'jewellery.receive.voucher', 'job_work_id'
     )
+    job_work_line_ids = fields.One2many(
+        'jewellery.job.work.line', 'job_work_id'
+    )
     making_charge_bill_id = fields.Many2one(
         'account.move', readonly=True
     )
@@ -41,6 +44,9 @@ class JewelleryJobWork(models.Model):
         'job_work_id',
         string='Lab Details'
     )
+
+
+
     @api.model
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
@@ -122,3 +128,21 @@ class JewelleryJobWork(models.Model):
             'view_mode': 'tree,form',
             'target': 'current',
         }
+
+class JewelleryJobWorkLine(models.Model):
+    _name = 'jewellery.job.work.line'
+    _description = 'Jewellery Job Work Line'
+
+    product_id = fields.Many2one("product.product", string="Product", required=True)
+    quantity = fields.Float(string="Quantity", required=True)
+    unit_of_measure = fields.Many2one("uom.uom", string="Unit of Measure", related="product_id.uom_id")
+    purity_id = fields.Many2one('gold.purity', string="Purity")
+    job_work_id = fields.Many2one('jewellery.job.work', required=True)
+    no_of_pieces = fields.Integer(
+            string="No. of Pieces",
+            default=1
+        )
+    gram_range_id = fields.Many2one(
+        'gold.gram.range',
+        string="Gram Range"
+    )

@@ -102,7 +102,8 @@
                                     <tree editable="bottom">
                                         <field name="request_action"/>
                                         <field name="product_id"/>
-                                        <field name="description"/>
+                                        <field name="no_of_pieces"/>
+                                        <field name="gram_range_id"/>
                                         <field name="quantity"/>
                                         <field name="unit_of_measure"/>
                                         <field name="vendor_ids" widget="many2many_tags"/>
@@ -151,9 +152,15 @@
             <field name="view_mode">tree,form</field>
         </record>
 
+        <menuitem id="material_purchase_requisitions_root"
+                  name="Requisitions"
+                  sequence="10"
+                  />
         <menuitem id="menu_material_purchase_requisitions"
                   name="Requisitions"
                   sequence="10"
-                  action="material_purchase_requisitions"/>
+                  parent="cr_material_purchase_requisitions.material_purchase_requisitions_root"
+                  action="material_purchase_requisitions"
+        />
     </data>
 </odoo>

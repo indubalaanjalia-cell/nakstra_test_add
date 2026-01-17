@@ -17,9 +17,13 @@
         'views/job_work.xml',
         'views/res_partner.xml',
         'views/receive_voucher.xml',
-
-        'views/issue_voucher.xml',
         'views/jeweller_menu.xml',
+        'views/refinery_menu.xml',
+        'views/issue_voucher.xml',
+        'views/scheme_view.xml',
+        'views/purchase_order.xml',
+        'views/requisition_view.xml',
+        'views/gold_rate_master_view.xml'
 
     ],
 

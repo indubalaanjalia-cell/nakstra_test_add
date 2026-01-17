@@ -6,3 +6,4 @@ from . import department
 from . import purchase_requisition
 from . import picking_count
 from . import purchase_count
+from .import gram_range

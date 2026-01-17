@@ -14,8 +14,30 @@
                 </button>
             </xpath>
             <xpath expr="//page[@name='general_information']//field[@name='detailed_type']" position="after">
+                <field name="is_scheme_product"/>
                 <field name="sale_purity_id"/>
                 <field name="sale_price_per_gram"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_product_form_jewellery" model="ir.ui.view">
+        <field name="name">product.product.form.jewellery</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_labels"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-tags">
+                    <field name="label_count" widget="statinfo" string="Labels"/>
+                </button>
+            </xpath>
+            <xpath expr="//page[@name='general_information']//field[@name='detailed_type']" position="after">
+                <field name="is_scheme_product"/>
+                <field name="sale_purity_id"/>
+                <field name="sale_price_per_gram"/>
+
             </xpath>
         </field>
     </record>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="material_purchase_requisition_inherit2" model="ir.ui.view">
+        <field name="name">purchase.requisition.inherit2</field>
+        <field name="model">material.purchase.requisition</field>
+        <field name="inherit_id" ref="cr_material_purchase_requisitions.material_purchase_requisition_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='requisition_lines']/tree//field[@name='quantity']" position="after">
+                <field name="purity_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

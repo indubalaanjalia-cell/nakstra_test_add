@@ -10,6 +10,18 @@ class JewelleryIssueVoucher(models.Model):
     job_worker_id = fields.Many2one('res.partner', required=True)
     line_ids = fields.One2many('jewellery.issue.voucher.line', 'voucher_id')
     state = fields.Selection([('draft','Draft'),('done','Done')], default='draft')
+    total_net_weight = fields.Float(
+        string="Total Net Weight (g)",
+        compute="_compute_total_net_weight",
+        store=True
+    )
+
+    @api.depends('line_ids.net_weight')
+    def _compute_total_net_weight(self):
+        for voucher in self:
+            voucher.total_net_weight = sum(
+                voucher.line_ids.mapped('net_weight')
+            )
 
     @api.model
     def create(self, vals):
@@ -33,6 +45,7 @@ class JewelleryIssueVoucher(models.Model):
         self.state = 'done'
 
 
+
 class JewelleryIssueVoucherLine(models.Model):
     _name = 'jewellery.issue.voucher.line'
 
@@ -45,6 +58,16 @@ class JewelleryIssueVoucherLine(models.Model):
     diamond_weight = fields.Float(string="Diamond Weight (g)")
     uom_id = fields.Many2one('uom.uom', string="UoM")
     purity_id = fields.Many2one('gold.purity', string="Purity")
+    fine_weight = fields.Float(string="Fine Weight  (g)",compute="_compute_fine_weight")
+    no_of_pieces = fields.Integer(
+        string="No. of Pieces",
+        default=1
+    )
+
+    gram_range_id = fields.Many2one(
+        'gold.gram.range',
+        string="Gram Range"
+    )
 
 
     net_weight = fields.Float(
@@ -52,6 +75,7 @@ class JewelleryIssueVoucherLine(models.Model):
         compute="_compute_net_weight",
         store=True
     )
+
 
     @api.depends(
         'gross_weight',
@@ -65,3 +89,8 @@ class JewelleryIssueVoucherLine(models.Model):
                     - rec.stone_weight
                     - rec.diamond_weight
             )
+
+    @api.depends('net_weight', 'purity_id')
+    def _compute_fine_weight(self):
+        for rec in self:
+            rec.fine_weight = rec.net_weight * (rec.purity_id.percentage) / 100

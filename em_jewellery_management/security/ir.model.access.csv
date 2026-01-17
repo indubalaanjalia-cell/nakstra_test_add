@@ -8,3 +8,8 @@ access_jewellery_receive_voucher_line,jewellery.receive.voucher.line,model_jewel
 access_jewellery_issue_voucher_line,jewellery.issue.voucher.line,model_jewellery_issue_voucher_line,,1,1,1,1
 access_jewellery_lab_test,jewellery.lab.test,model_jewellery_lab_test,,1,1,1,1
 access_jewellery_receive_voucher_package_line,jewellery.receive.voucher.package.line,model_jewellery_receive_voucher_package_line,,1,1,1,1
+access_jewellery_refinery_order,jewellery.refinery.order,model_jewellery_refinery_order,,1,1,1,1
+access_customer_scheme,customer.scheme,model_customer_scheme,,1,1,1,1
+access_customer_scheme_payment,customer.scheme.payment,model_customer_scheme_payment,,1,1,1,1
+access_gold_rate_master,gold.rate.master,model_gold_rate_master,,1,1,1,1
+access_jewellery_job_work_line,jewellery.job.work.line,model_jewellery_job_work_line,,1,1,1,1

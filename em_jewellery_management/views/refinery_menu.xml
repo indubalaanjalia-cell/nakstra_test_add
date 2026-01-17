@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_refinery_tree" model="ir.ui.view">
+        <field name="name">refinery.order.tree</field>
+        <field name="model">jewellery.refinery.order</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="old_gold_weight"/>
+                <field name="gold_bar_weight"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_refinery_form" model="ir.ui.view">
+        <field name="name">refinery.order.form</field>
+        <field name="model">jewellery.refinery.order</field>
+        <field name="arch" type="xml">
+            <form string="Refinery Order">
+                <header>
+                    <button name="action_melt_gold" type="object" string="Melt Gold" class="btn-primary" invisible="state!='draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="partner_id"/>
+                        <field name="date"/>
+                    </group>
+                    <group>
+                        <field name="old_gold_weight"/>
+                        <field name="purity_id"/>
+                        <field name="wastage_percent"/>
+                        <field name="gold_bar_weight" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_refinery_orders" model="ir.actions.act_window">
+        <field name="name">Refinery Orders</field>
+        <field name="res_model">jewellery.refinery.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_refinery_orders" name="Refinery Orders" parent="em_jewellery_management.menu_jewellery_root" action="action_refinery_orders"/>
+</odoo>
